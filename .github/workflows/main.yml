@@ -19,15 +19,15 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Generate Missing Gradle & Version Catalog Files
+      - name: Generate Correct Gradle & Version Catalog Files
         run: |
           mkdir -p gradle
           
-          # 1. Generate libs.versions.toml
+          # 1. Generate libs.versions.toml with Kotlin 2.0.0 and kotlin-compose plugin
           cat << 'EOF' > gradle/libs.versions.toml
           [versions]
           agp = "8.5.0"
-          kotlin = "1.9.24"
+          kotlin = "2.0.0"
           coreKtx = "1.13.1"
           junit = "4.13.2"
           junitVersion = "1.2.1"
@@ -42,7 +42,7 @@ jobs:
           okhttp = "4.12.0"
           coroutines = "1.8.1"
           datastore = "1.1.1"
-          ksp = "1.9.24-1.0.20"
+          ksp = "2.0.0-1.0.21"
           secrets = "2.0.1"
           googleServices = "4.4.2"
 
@@ -118,11 +118,12 @@ jobs:
           include(":app")
           EOF
 
-          # 3. Generate root build.gradle.kts
+          # 3. Generate root build.gradle.kts including kotlin-compose plugin
           cat << 'EOF' > build.gradle.kts
           plugins {
               alias(libs.plugins.android.application) apply false
-              alias(libs.plugins.kotlin.compose) apply false
+              alias(libs.plugins.kotlin-android) apply false
+              alias(libs.plugins.kotlin-compose) apply false
               alias(libs.plugins.google.devtools.ksp) apply false
               alias(libs.plugins.secrets) apply false
               alias(libs.plugins.google.services) apply false
