@@ -19,7 +19,7 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Generate Direct Gradle Configuration Files
+      - name: Generate Fixed Gradle Configuration Files
         run: |
           mkdir -p gradle
           
@@ -44,7 +44,7 @@ jobs:
           include(":app")
           EOF
 
-          # 2. Generate root build.gradle.kts without alias errors
+          # 2. Generate root build.gradle.kts without repository conflict
           cat << 'EOF' > build.gradle.kts
           buildscript {
               repositories {
@@ -58,17 +58,6 @@ jobs:
                   classpath("com.google.gms:google-services:4.4.2")
                   classpath("com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin:2.0.1")
               }
-          }
-
-          allprojects {
-              repositories {
-                  google()
-                  mavenCentral()
-              }
-          }
-
-          tasks.register("clean", Delete::class) {
-              delete(rootProject.buildDir)
           }
           EOF
 
