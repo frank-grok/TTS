@@ -1,0 +1,6 @@
+{
+  "name": "Burmese TTS Studio",
+  "description": "Natural Burmese (Myanmar) Text-to-Speech synthesizer with phonetic normalizer, literary expansions, and tone presets.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
